@@ -1,3 +1,5 @@
+from __future__ import print_function
+from builtins import input
 import sys
 import webbrowser
 from rtmapi import Rtm
@@ -16,12 +18,12 @@ if __name__ == '__main__':
         url, frob = api.authenticate_desktop()
         # open webbrowser, wait until user authorized application
         webbrowser.open(url)
-        raw_input("Continue?")
+        input("Continue?")
         # get the token for the frob
         api.retrieve_token(frob)
         # print out new token, should be used to initialize the Rtm object next time
         # (a real application should store the token somewhere)
-        print "New token: %s" % api.token
+        print("New token: %s" % api.token)
     
     # all updates require timeline (which =~ savepoint to which
     # one can rollback)
@@ -32,14 +34,14 @@ if __name__ == '__main__':
     result = api.rtm.lists.add(timeline = timeline,
                                name = u"an example list")
     list_id = result.list.id
-    print "Created list with id", list_id
+    print("Created list with id", list_id)
 
     # And task
     result = api.rtm.tasks.add(timeline = timeline,
                                list_id = list_id,
                                name = u"some task")
     task_id = result.list.taskseries.task.id
-    print task_id
-    print "Created task", task_id
+    print(task_id)
+    print("Created task", task_id)
 
 
